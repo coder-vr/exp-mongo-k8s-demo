@@ -1,0 +1,18 @@
+services:
+  mongodb-cs:
+    image: "mongo:latest"
+    container_name: mongo-cs
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh localhost:27017/test --quiet
+      interval: 10s
+      timeout: 10s
+      retries: 5
+
+  exp-app:
+    build: ./
+    container_name: exp-mongo-cs
+    depends_on:
+      mongodb-cs:
+        condition: service_healthy
+    ports:
+      - "3000:8080"
