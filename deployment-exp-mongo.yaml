@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-mongo-exp-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nodedb-app
+  template:
+    metadata:
+      labels:
+        app: nodedb-app
+    spec:
+      containers:
+        - name: mongo-exp-k8s
+          image: viraj25/exp-mongo:01
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "256Mi"
+              cpu: "250m"
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+        - name: mongo-cs
+          image: mongo:latest
+          ports:
+            - containerPort: 27017
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-my-nodedb-app
+spec:
+  ports:
+    - name: http
+      port: 3000
+      targetPort: 8080
+  selector:
+    app: nodedb-app
+  type: LoadBalancer
