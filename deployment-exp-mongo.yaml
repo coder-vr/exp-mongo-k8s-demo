@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: mongo-exp-k8s
-          image: viraj25/exp-mongo:01
+          image: viraj25/exp-mongo:02
           ports:
             - containerPort: 8080
           resources:
