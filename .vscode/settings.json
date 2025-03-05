@@ -1,5 +1,0 @@
-{
-    "yaml.schemas": {
-        "kubernetes://schema/v1%40service": "file:///d%3A/DevOps%20Lerning/Kubernetes%20Learning/01_express_mongo/deployment-exp-mongo.yaml"
-    }
-}
