@@ -6,10 +6,14 @@ dotenv.config({
   path: "./.env",
 });
 
+// mongodb://localhost:27017
+const MONGO_HOST = process.env.MONGO_HOST || "localhost";
+const MONGO_PORT = process.env.MONGO_PORT || "27017";
+
 const connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(
-      `${process.env.MONGODB_URI}/k8stest`
+      `mongodb://${MONGO_HOST}:${MONGO_PORT}/k8stest`
     );
     console.log(
       `\nMongoDB connected !! DB HOST:${connectionInstance.connection.host}`
